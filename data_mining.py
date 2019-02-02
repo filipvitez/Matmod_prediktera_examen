@@ -9,7 +9,7 @@ all_boys=[]
 before_change = []
 after_change = []
 all_minus_zero = []
-over_80 = []
+over_90_list = []
 all_B = []
 all_C = []
 all_D = []
@@ -33,7 +33,7 @@ def read_txtfile():
             if i < 1:
                 keys = line.split()
             else:
-                if i < 100000000:
+                if i < 1000000000:
                     res = {}
                     v = line.split()
                     for k, item in enumerate(keys):
@@ -116,10 +116,26 @@ all_L = sort_program(all_standardized_points, "L")
 all_M = sort_program(all_standardized_points, "M")
 all_N = sort_program(all_standardized_points, "N")
 all_Pi = sort_program(all_standardized_points, "P")
+all_T = sort_program(all_standardized_points, "T")
+all_V = sort_program(all_standardized_points, "V")
 all_W = sort_program(all_standardized_points, "W")
 
 
-
+# returns list of sublists containing semesters for each starting year
+def sort_starting_year(list):
+    sorted_list = []
+    newlist = sorted(list, key=lambda k: k['kull'])
+    p = newlist[0]["kull"]
+    temp = []
+    for l in newlist:
+        if l["kull"] == p:
+            temp.append(l)
+        else:
+            sorted_list.append(temp.copy())
+            temp.clear()
+            temp.append(l)
+        p = l["kull"]
+    return sorted_list
 
 
 # Returns a list with sublists containing semesters for each student
@@ -150,28 +166,49 @@ def get_point_average(list):
         point_sum += float(l["poang_p"])
     return point_sum / len(list)
 
+# Returns list with point average for each starting year (kull)
+def calc_points_average_per_starting_year(list):
+    return_list = []
+    for l in list:
+        sum = 0
+        for ll in l:
+            sum += float(ll["poang_p"])
+        average = sum/len(l)
+        return_list.append(average)
+        #print(l[0]["kull"] + ": " + str(sum/len(l)))
+    return return_list
+
+# ----------- # Populates year_average # ------------#
+year_list = sort_starting_year(all_standardized_points)
+year_average = calc_points_average_per_starting_year(year_list)
+
 
 # Returns all semesters where the points taken are over 80 from input list
 def over_80(list):
     for l in list:
-        if float(l["poang_p"]) > 80:
-            over_80.append(l)
+        if float(l["poang_p"]) > 100:
+            over_90_list.append(l)
 
-def plot_(list):
+# Plots program average
+def plot_program_histogram():
+    average_list = [get_point_average(all_B)] + [get_point_average(all_C)] + [get_point_average(all_D)] + [get_point_average(all_E)] + [get_point_average(all_F)] + [get_point_average(all_G)] + [get_point_average(all_I)] + [get_point_average(all_K)] + [get_point_average(all_L)] + [get_point_average(all_M)] + [get_point_average(all_N)] + [get_point_average(all_Pi)] + [get_point_average(all_T)] + [get_point_average(all_V)] + [get_point_average(all_W)]
+    np_list = np.asarray(average_list)
+    program_names = ["B","C","D","E","F","MD","I","K","L","M","N","Pi","BME", "V", "W"]
+    plt.bar(range(len(np_list)), np_list)
+    plt.xticks(np.arange(15), program_names)
+    plt.show()
 
 
-#print(get_point_average(all_standardized_points))
-#print(get_point_average(all_boys))
-#print(get_point_average(all_girls))
-# print(get_point_average(all_B))
-# print(get_point_average(all_C))
-# print(get_point_average(all_D))
-# print(get_point_average(all_E))
-# print(get_point_average(all_F))
-# print(get_point_average(all_I))
-# print(get_point_average(all_K))
-# print(get_point_average(all_L))
-# print(get_point_average(all_M))
-# print(get_point_average(all_N))
-# print(get_point_average(all_Pi))
-# print(get_point_average(all_W))
+# Plots startyear average
+def plot_startyear_histogram():
+    np_list = np.asarray(year_average)
+    year_names = [n[0]["kull"][:-1] for n in year_list]
+    plt.bar(range(len(np_list)), np_list, width = 0.5)
+    plt.xticks(np.arange(22), year_names)
+    #tick.label.set_fontsize(8)
+    plt.show()
+
+# populates over_90 list with semester where points taken > 90
+over_90(all_standardized_points)
+for l in over_90_list:
+    print(l)

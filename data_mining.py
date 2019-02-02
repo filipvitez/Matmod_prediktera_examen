@@ -10,6 +10,21 @@ before_change = []
 after_change = []
 all_minus_zero = []
 over_80 = []
+all_B = []
+all_C = []
+all_D = []
+all_E = []
+all_F = []
+all_I = []
+all_K = []
+all_L = []
+all_M = []
+all_N = []
+all_Pi = []
+all_W = []
+
+
+
 
 #reads and imports txtfile to all list. Change the value of i to make the code run faster
 def read_txtfile():
@@ -18,7 +33,7 @@ def read_txtfile():
             if i < 1:
                 keys = line.split()
             else:
-                if i < 1000:
+                if i < 100000000:
                     res = {}
                     v = line.split()
                     for k, item in enumerate(keys):
@@ -80,6 +95,32 @@ def remove_zero(list):
             return_list.append(item)
     return return_list
 
+# divides input list into sublists for each input program
+def sort_program(list, program):
+    return_list = []
+    for l in list:
+        if l["program"] == program:
+            return_list.append(l)
+    return return_list
+
+# populate lists for each program
+all_B = sort_program(all_standardized_points, "B")
+all_C = sort_program(all_standardized_points, "C")
+all_D = sort_program(all_standardized_points, "D")
+all_E = sort_program(all_standardized_points, "E")
+all_F = sort_program(all_standardized_points, "F")
+all_G = sort_program(all_standardized_points, "G")
+all_I = sort_program(all_standardized_points, "I")
+all_K = sort_program(all_standardized_points, "K")
+all_L = sort_program(all_standardized_points, "L")
+all_M = sort_program(all_standardized_points, "M")
+all_N = sort_program(all_standardized_points, "N")
+all_Pi = sort_program(all_standardized_points, "P")
+all_W = sort_program(all_standardized_points, "W")
+
+
+
+
 
 # Returns a list with sublists containing semesters for each student
 def sort_students(list):
@@ -114,4 +155,23 @@ def get_point_average(list):
 def over_80(list):
     for l in list:
         if float(l["poang_p"]) > 80:
-            over_100.append(l)
+            over_80.append(l)
+
+def plot_(list):
+
+
+#print(get_point_average(all_standardized_points))
+#print(get_point_average(all_boys))
+#print(get_point_average(all_girls))
+# print(get_point_average(all_B))
+# print(get_point_average(all_C))
+# print(get_point_average(all_D))
+# print(get_point_average(all_E))
+# print(get_point_average(all_F))
+# print(get_point_average(all_I))
+# print(get_point_average(all_K))
+# print(get_point_average(all_L))
+# print(get_point_average(all_M))
+# print(get_point_average(all_N))
+# print(get_point_average(all_Pi))
+# print(get_point_average(all_W))

@@ -89,7 +89,7 @@ divide_sex(all_standardized_points) #populates all_boys and all_girls
 
 # returns a list where all the zero-point-semesters from input list is exluded
 def remove_zero(list):
-    return_list
+    return_list = []
     for item in list:
         if float(item["poang_p"]) > 0:
             return_list.append(item)
@@ -213,9 +213,10 @@ def over_90(all_standardized_points):
     for l in over_90_list:
         print(l)
 
-def get_semester_average(list,semesterNbr): #return average points for a list, for the semester semesterNbr, up to 20 semesters
+def get_semester_average(list,semesterNbr): #return average points for a list, for the semester semesterNbr
     temp = []
     point_sum=0
+    list=remove_zero(list)
     for i in range(1, 20):
         for l in list:
             if i == int(l["ptnr"]):
@@ -225,6 +226,8 @@ def get_semester_average(list,semesterNbr): #return average points for a list, f
         temp.clear();
     for l in semesters[semesterNbr]:
         point_sum += float(l)
-
-    print(len(semesters[semesterNbr]))
     return point_sum/len((semesters[semesterNbr]))
+
+
+
+all_M = print(get_semester_average(all_B,2))

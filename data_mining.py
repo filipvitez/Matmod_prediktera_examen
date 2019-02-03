@@ -22,7 +22,7 @@ all_M = []
 all_N = []
 all_Pi = []
 all_W = []
-
+semesters = []
 
 
 
@@ -209,6 +209,22 @@ def plot_startyear_histogram():
     plt.show()
 
 # populates over_90 list with semester where points taken > 90
-over_90(all_standardized_points)
-for l in over_90_list:
-    print(l)
+def over_90(all_standardized_points):
+    for l in over_90_list:
+        print(l)
+
+def get_semester_average(list,semesterNbr): #return average points for a list, for the semester semesterNbr, up to 20 semesters
+    temp = []
+    point_sum=0
+    for i in range(1, 20):
+        for l in list:
+            if i == int(l["ptnr"]):
+                temp.append(float(l["poang_p"]))
+
+        semesters.append((temp.copy()))
+        temp.clear();
+    for l in semesters[semesterNbr]:
+        point_sum += float(l)
+
+    print(len(semesters[semesterNbr]))
+    return point_sum/len((semesters[semesterNbr]))

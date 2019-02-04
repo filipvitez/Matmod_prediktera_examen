@@ -3,13 +3,14 @@ import matplotlib.pyplot as plt
 import copy
 
 all = [] # List containing all semesters (1 semester = 1 dictionary with 10 key-value pairs)
-all_standardized_points = [] # List containing all semesters following the new point-system
-all_girls= []
-all_boys=[]
+all_standardized_points = [] # List containing all semesters with semesters before 2007 multiplied by 1.5
+all_minus_zero = []
+all_girls= [] #not containing zero-semesters
+all_boys=[] #not containing zero-semesters
 before_change = []
 after_change = []
 all_minus_zero = []
-over_90_list = []
+over_80_list = []
 all_B = []
 all_C = []
 all_D = []
@@ -23,6 +24,7 @@ all_N = []
 all_Pi = []
 all_W = []
 semesters = []
+students_minus_zero_list = [] # List of lists of non-zero semesters for each students
 
 
 
@@ -70,9 +72,16 @@ separate_before_after()
 all_standardized_points = convert_to_new_point_system(before_change) + after_change # En ny lista där alla terminer följer det gamla systemet
 
 
-# from now on, all_standardized_points (a.s.p) will be the standard list to do operations on
 
 #-------------------------------------------------------------------------------#
+
+# returns a list where all the zero-point-semesters from input list is exluded
+def remove_zero(list):
+    return_list = []
+    for item in list:
+        if float(item["poang_p"]) > 0:
+            return_list.append(item)
+    return return_list
 
 # Separates input list into girl and boys
 def divide_sex(list):
@@ -83,17 +92,13 @@ def divide_sex(list):
             all_boys.append(l)
 
 # ----------------------------------------------------------------------------#
-divide_sex(all_standardized_points) #populates all_boys and all_girls
+
+all_minus_zero = remove_zero(all) #populates all_minus_zero
+divide_sex(all_minus_zero) #populates all_boys and all_girls with non-zero semesters
 
 # ----------------------------------------------------------------------------#
 
-# returns a list where all the zero-point-semesters from input list is exluded
-def remove_zero(list):
-    return_list = []
-    for item in list:
-        if float(item["poang_p"]) > 0:
-            return_list.append(item)
-    return return_list
+
 
 # divides input list into sublists for each input program
 def sort_program(list, program):
@@ -103,22 +108,23 @@ def sort_program(list, program):
             return_list.append(l)
     return return_list
 
+
 # populate lists for each program
-all_B = sort_program(all_standardized_points, "B")
-all_C = sort_program(all_standardized_points, "C")
-all_D = sort_program(all_standardized_points, "D")
-all_E = sort_program(all_standardized_points, "E")
-all_F = sort_program(all_standardized_points, "F")
-all_G = sort_program(all_standardized_points, "G")
-all_I = sort_program(all_standardized_points, "I")
-all_K = sort_program(all_standardized_points, "K")
-all_L = sort_program(all_standardized_points, "L")
-all_M = sort_program(all_standardized_points, "M")
-all_N = sort_program(all_standardized_points, "N")
-all_Pi = sort_program(all_standardized_points, "P")
-all_T = sort_program(all_standardized_points, "T")
-all_V = sort_program(all_standardized_points, "V")
-all_W = sort_program(all_standardized_points, "W")
+all_B = sort_program(all_minus_zero, "B")
+all_C = sort_program(all_minus_zero, "C")
+all_D = sort_program(all_minus_zero, "D")
+all_E = sort_program(all_minus_zero, "E")
+all_F = sort_program(all_minus_zero, "F")
+all_G = sort_program(all_minus_zero, "G")
+all_I = sort_program(all_minus_zero, "I")
+all_K = sort_program(all_minus_zero, "K")
+all_L = sort_program(all_minus_zero, "L")
+all_M = sort_program(all_minus_zero, "M")
+all_N = sort_program(all_minus_zero, "N")
+all_Pi = sort_program(all_minus_zero, "P")
+all_T = sort_program(all_minus_zero, "T")
+all_V = sort_program(all_minus_zero, "V")
+all_W = sort_program(all_minus_zero, "W")
 
 
 # returns list of sublists containing semesters for each starting year
@@ -179,15 +185,15 @@ def calc_points_average_per_starting_year(list):
     return return_list
 
 # ----------- # Populates year_average # ------------#
-year_list = sort_starting_year(all_standardized_points)
+year_list = sort_starting_year(remove_zero(all))
 year_average = calc_points_average_per_starting_year(year_list)
 
 
 # Returns all semesters where the points taken are over 80 from input list
-def over_80(list):
-    for l in list:
-        if float(l["poang_p"]) > 100:
-            over_90_list.append(l)
+def over_80():
+    for l in all:
+        if float(l["poang_p"]) > 80:
+            over_80_list.append(l)
 
 # Plots program average
 def plot_program_histogram():
@@ -198,6 +204,7 @@ def plot_program_histogram():
     plt.xticks(np.arange(15), program_names)
     plt.show()
 
+#plot_program_histogram()
 
 # Plots startyear average
 def plot_startyear_histogram():
@@ -208,10 +215,16 @@ def plot_startyear_histogram():
     #tick.label.set_fontsize(8)
     plt.show()
 
-# populates over_90 list with semester where points taken > 90
-def over_90(all_standardized_points):
-    for l in over_90_list:
+#plot_startyear_histogram()
+
+# prints contents of over_80-list
+def print_over_80():
+    for l in over_80_list:
         print(l)
+
+# Populate over 80 list
+#over_80()
+
 
 def get_semester_average(list,semesterNbr): #return average points for a list, for the semester semesterNbr
     temp = []
@@ -228,6 +241,36 @@ def get_semester_average(list,semesterNbr): #return average points for a list, f
         point_sum += float(l)
     return point_sum/len((semesters[semesterNbr]))
 
+#----------# List of lists of non-zero semesters for each students #----------#
+students_minus_zero_list = sort_students(all_minus_zero)
 
 
-all_M = print(get_semester_average(all_B,2))
+# If input list is list of lists of semesters, removes all lists with only 1 semesters
+# (returned list is used for calculating semester error)
+def remove_lists_with_1_semester(list):
+    return_list = []
+    for l in list:
+        if len(l) > 1:
+            return_list.append(l)
+    return return_list
+
+# Calculates the mean_error from "guessing" the points taken one semester based on points taken previous semesters
+# Zero-semesters are excluded
+def calc_last_semester_error(list):
+    mean_error = 0
+    accumulative_error = 0
+    for l in list:
+        temp_mean_error = 0
+        prev_points = 0
+        for ll in l:
+            if prev_points != 0:
+                temp_mean_error += np.abs(float(ll["poang_p"]) - prev_points)/prev_points
+            prev_points = float(ll["poang_p"])
+        accumulative_error += temp_mean_error/(len(l)-1)
+    mean_error = accumulative_error/len(list)
+    return mean_error
+
+print(calc_last_semester_error(remove_lists_with_1_semester(students_minus_zero_list)))
+
+
+#all_M = print(get_semester_average(all_B,2))

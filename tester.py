@@ -26,3 +26,5 @@ print(test + test2)
 
 a = "tja"
 print(a[:-1])
+
+print("tjena")

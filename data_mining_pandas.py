@@ -29,6 +29,7 @@ semesters = pd.read_csv("terminsstatus_17.txt", sep= "\t") # Läser in datasetet
 
 #--------------# Sortering #------------------------------------#
 #females = semesters[semesters.female == 1] # Endast tjejer
+#non_zero = semesters[semesters.poang_p != 0] # Inga nollterminer
 #M_students = semesters[semesters.program == "M"] # Endast M-studenter
 #print(semesters.sort_values(by = "poang_p", ascending = False).head(10)) # printa de 10 terminerna med högst poäng
 #sorted_startingyear = semesters.groupby('kull') # grupperar baserat på startår (kull)
@@ -43,3 +44,18 @@ semesters = pd.read_csv("terminsstatus_17.txt", sep= "\t") # Läser in datasetet
 
 
 #------------------# Funktioner #-------------------------------#
+# Skapa funktioner som objekt och applya till panda-objekten
+
+        #------# Start_year_cleaner #---------#
+#start_year_cleaner = lambda x: int(str(x)[:-1]) # tar bort termins-numret ur "kull"
+#print(semesters.kull.apply(start_year_cleaner).head()) # printar de översta start åren, där terminsnumret är borttaget
+#semesters.kull = semesters.kull.apply(start_year_cleaner) # ändrar om listan så att terminsnumret inte är med i "kull"
+        #------------------------------------#
+
+        #-------# Add boolean-column to check if semester has over 30p #--------#
+#over_30_points = lambda x: x>30 #create function
+#semesters['over_30'] = semesters.poang_p.apply(over_30_points) # create new column in semesters named 'over_30'
+#print(semesters.head(40)) # check if works as intended
+        #----------------------------------------#
+
+        

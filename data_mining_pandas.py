@@ -1,10 +1,16 @@
+from __future__ import print_function
 import numpy as np
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
+#import seaborn as sns
+from sys import platform as sys_pf
+#if sys_pf == "darwin":
+#    import matplotlib
+#    matplotlib.use("TkAgg")
+from matplotlib import pyplot as plt
 
-from sklearn.preprocessing import LabelEncoder
-from sklearn.cross_validation import StratifiedShuffleSplit
+
+#from sklearn.preprocessing import LabelEncoder
+#from sklearn.cross_validation import StratifiedShuffleSplit
 
 semesters = pd.read_csv("terminsstatus_17.txt", sep= "\t") # Läser in datasetet i ett speciellt pandaobjekt
 
@@ -22,6 +28,7 @@ semesters = pd.read_csv("terminsstatus_17.txt", sep= "\t") # Läser in datasetet
 #print(semesters.program.nunique()) # får fram antalet olika program
 #print(semesters.program.unique()) # Får fram de olika programtyperna i en lista
 
+#semesters = semesters.set_index('lopnr', drop = True) # löpnr blir index av datframen
 
 #----------------# Statistisk Data #------------------------------#
 #print(semesters.describe()) # Printar statistisk för de kolumner med int/float som datatyp
@@ -58,4 +65,7 @@ semesters = pd.read_csv("terminsstatus_17.txt", sep= "\t") # Läser in datasetet
 #print(semesters.head(40)) # check if works as intended
         #----------------------------------------#
 
-        
+
+        #---------# Plotting #------------------------#
+#semesters.hist('poang_p') #plottar poängmedelvärdet i ett histogram
+#plt.show()

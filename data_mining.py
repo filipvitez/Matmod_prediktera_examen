@@ -1,5 +1,7 @@
 import numpy as np
-import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use("TkAgg")
+from matplotlib import pyplot as plt
 import copy
 
 all = [] # List containing all semesters (1 semester = 1 dictionary with 10 key-value pairs)
@@ -215,7 +217,7 @@ def plot_startyear_histogram():
     #tick.label.set_fontsize(8)
     plt.show()
 
-#plot_startyear_histogram()
+plot_startyear_histogram()
 
 # prints contents of over_80-list
 def print_over_80():

@@ -101,43 +101,43 @@ poang_p = soty['poang_p']
 
 
 #
-# ''' förra termin gissar medelvärde '''
-#
-# prev_points = semesters.loc[semesters['lopnr'].shift(-1)==1, 'poang_p']
-# print(prev_points)
-#
-# semesters2 = semesters.iloc[:100000 :]
-#
-#
-# prev_points = lambda x: x.shift(+1)
-# prev_semesters = semesters2.apply(prev_points)
-# prev = []
-#
-# # Denna foor-loop tar sjukt lång tid av nån anledning, därför har jag valt att korta ner semesters2
-# for i, s in semesters2.iterrows():
-#     if s.lopnr == prev_semesters.iloc[i].lopnr:
-#         prev.append(prev_semesters.iloc[i].poang_p)
-#     else:
-#         prev.append(None)
-#
-# prev_points = pd.DataFrame(prev)
-#
-#
-# semesters2['prev_points'] = prev_points
-#
-# rmse = 0
-# mean = 0
-# acc = 0
-#
-#
-# p1 = semesters2.poang_p
-# p2 = semesters2.prev_points
-#
-#
-# for i, p in enumerate(p1):
-#     if not math.isnan(p2[i]):
-#         rmse += np.sqrt(np.power(p-p2[i],2))
-#     acc += p
-#     mean = acc/(i+1)
-# rmse /= p1.shape[0]
-# print(rmse) # blir 8.33 Alltså rätt bra. Har dock bara kört den på 100k terminer
+''' förra termin gissar medelvärde '''
+
+prev_points = semesters.loc[semesters['lopnr'].shift(-1)==1, 'poang_p']
+print(prev_points)
+
+semesters2 = semesters.iloc[:100000 :]
+
+
+prev_points = lambda x: x.shift(+1)
+prev_semesters = semesters2.apply(prev_points)
+prev = []
+
+# Denna foor-loop tar sjukt lång tid av nån anledning, därför har jag valt att korta ner semesters2
+for i, s in semesters2.iterrows():
+    if s.lopnr == prev_semesters.iloc[i].lopnr:
+        prev.append(prev_semesters.iloc[i].poang_p)
+    else:
+        prev.append(None)
+
+prev_points = pd.DataFrame(prev)
+
+
+semesters2['prev_points'] = prev_points
+
+rmse = 0
+mean = 0
+acc = 0
+count = 0
+
+p1 = semesters2.poang_p
+p2 = semesters2.prev_points
+
+
+for i, p in enumerate(p1):
+    if not math.isnan(p2[i]):
+        rmse += np.sqrt(np.power(p-p2[i],2))
+        count += 1
+
+rmse /= count
+print(rmse) # blir 9.23 Alltså rätt bra. Har dock bara kört den på 100k terminer

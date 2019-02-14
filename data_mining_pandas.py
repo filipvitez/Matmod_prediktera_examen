@@ -47,7 +47,7 @@ semesters = pd.read_csv("terminsstatus_17.txt", sep= "\t") # Läser in datasetet
 #print(semesters.groupby('kull').poang_p.describe()) # printar ut statistisk data för varje årskull
 #print(semesters.groupby('kull').poang_p.agg(['mean', 'median', 'min', 'max'])) # printar medelvärde, median, min och max för kullarna
 #print(semesters.groupby('program').female.sum() / semesters.program.value_counts() * 100) # Andel tjejer i varje program
-#print(semesters.groupby(['program', 'female']).poang_p.mean()) # Printar medelvärdet för killar/tjejer för varje program
+print(semesters.groupby(['program', 'female']).poang_p.describe()) # Printar medelvärdet för killar/tjejer för varje program
 
 
 #------------------# Funktioner #-------------------------------#

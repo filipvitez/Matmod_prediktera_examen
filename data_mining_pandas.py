@@ -14,7 +14,7 @@ semesters = pd.read_csv("terminsstatus_17.txt", sep= "\t") # Läser in datasetet
 #print(semesters.shape[0]) # Printar antalet observationer (rader)
 #print(semesters.shape[1]) # Printar antalet kolumner
 #print(semesters.columns) # Printar column-namnen
-#print(semesters.info()) # Printar info om rader, kolumner och datatyper
+print(semesters.info()) # Printar info om rader, kolumner och datatyper
 
 
 #------------# Columnsoperationer #----------------------#
@@ -57,5 +57,3 @@ semesters = pd.read_csv("terminsstatus_17.txt", sep= "\t") # Läser in datasetet
 #semesters['over_30'] = semesters.poang_p.apply(over_30_points) # create new column in semesters named 'over_30'
 #print(semesters.head(40)) # check if works as intended
         #----------------------------------------#
-
-        

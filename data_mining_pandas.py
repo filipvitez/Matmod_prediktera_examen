@@ -1,10 +1,16 @@
+from __future__ import print_function
 import numpy as np
 import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
+#import seaborn as sns
+from sys import platform as sys_pf
+#if sys_pf == "darwin":
+#    import matplotlib
+#    matplotlib.use("TkAgg")
+from matplotlib import pyplot as plt
 
-from sklearn.preprocessing import LabelEncoder
-from sklearn.cross_validation import StratifiedShuffleSplit
+
+#from sklearn.preprocessing import LabelEncoder
+#from sklearn.cross_validation import StratifiedShuffleSplit
 
 semesters = pd.read_csv("terminsstatus_17.txt", sep= "\t") # Läser in datasetet i ett speciellt pandaobjekt
 
@@ -22,6 +28,7 @@ print(semesters.info()) # Printar info om rader, kolumner och datatyper
 #print(semesters.program.nunique()) # får fram antalet olika program
 #print(semesters.program.unique()) # Får fram de olika programtyperna i en lista
 
+#semesters = semesters.set_index('lopnr', drop = True) # löpnr blir index av datframen
 
 #----------------# Statistisk Data #------------------------------#
 #print(semesters.describe()) # Printar statistisk för de kolumner med int/float som datatyp
@@ -40,7 +47,7 @@ print(semesters.info()) # Printar info om rader, kolumner och datatyper
 #print(semesters.groupby('kull').poang_p.describe()) # printar ut statistisk data för varje årskull
 #print(semesters.groupby('kull').poang_p.agg(['mean', 'median', 'min', 'max'])) # printar medelvärde, median, min och max för kullarna
 #print(semesters.groupby('program').female.sum() / semesters.program.value_counts() * 100) # Andel tjejer i varje program
-#print(semesters.groupby(['program', 'female']).poang_p.mean()) # Printar medelvärdet för killar/tjejer för varje program
+print(semesters.groupby(['program', 'female']).poang_p.describe()) # Printar medelvärdet för killar/tjejer för varje program
 
 
 #------------------# Funktioner #-------------------------------#
@@ -57,3 +64,11 @@ print(semesters.info()) # Printar info om rader, kolumner och datatyper
 #semesters['over_30'] = semesters.poang_p.apply(over_30_points) # create new column in semesters named 'over_30'
 #print(semesters.head(40)) # check if works as intended
         #----------------------------------------#
+<<<<<<< HEAD
+=======
+
+
+        #---------# Plotting #------------------------#
+#semesters.hist('poang_p') #plottar poängmedelvärdet i ett histogram
+#plt.show()
+>>>>>>> fc3dfac04933f0756766ecb4410b73cf41b93dd7

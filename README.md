@@ -19,7 +19,7 @@ Ladda ner anaconda och se till att terminalen du använder dig av har rätt path
 $ : innebär consol-commando (terminal för mac och anaconda prompt för windows)
 1. Se till att du har git installerat på din dator
 2. Kopiera länken till repository:t genom att klicka på den gröna knappen "Clone or download"
-3. Navigera till önskat installationsställe i terminalen. (använd $ ls och $ cd på linux)
+3. Navigera till önskat installationsställe i terminalen. (använd $ ls och $ cd på unix)
 4. Skriv in kommandot $ git clone https://github.com/filipvitez/Matmod_prediktera_examen.git
 5. Skriv in kommandot $ cd Matmod_prediktera_examen
 

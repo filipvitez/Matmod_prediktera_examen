@@ -32,9 +32,10 @@ $ : innebär consol-commando (terminal för mac och anaconda prompt för windows
 
 1. skriv in $ jupyter notebook i terminalen
 2. En webbläsare kommer att öppnas med Matmod_prediktera_examen - mappen där du kan välja att navigera in på någon av filerna.
-3. För att kunna köra koden kommer diverse paket att behöva laddas ner.
-4. Detta görs enklast genom att försöka köra koden, undersöka de felmeddelanden som dyker upp, t.ex. "module not found: tensorflow", för att sedan i terminalen installera de saknade paketen genom terminalkommandot $ conda install "paketets namn"
-5. Repetera detta tills alla paket är installerade och kör jupyterkoden cell-vis genom att klicka shift-enter. (alla celler är beroende av varandra så för att köra de understa kräver att man kört samtliga övriga celler minst en gång)
+3. Nätverket finns och går att köra i Keras_NN.ipynb
+4. För att kunna köra koden kommer diverse paket att behöva laddas ner.
+5. Detta görs enklast genom att försöka köra koden, undersöka de felmeddelanden som dyker upp, t.ex. "module not found: tensorflow", för att sedan i terminalen installera de saknade paketen genom terminalkommandot $ conda install "paketets namn"
+6. Repetera detta tills alla paket är installerade och kör jupyterkoden cell-vis genom att klicka shift-enter. (alla celler är beroende av varandra så för att köra de understa kräver att man kört samtliga övriga celler minst en gång)
 
 
 
